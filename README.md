@@ -1,6 +1,7 @@
 ## 项目概述
 ```
 该项目是一个基于 DeepTage 论文和 CIFAR-10 数据集的简要实现项目，支持模型训练、导出 ONNX 模型并在 Atlas200DK 上进行 ACL 推理以及通过 Flask Web 接口进行展示结果。
+参考文献：DeepTAGE: Deep Temporal-Aligned Gradient Enhancement for Optimizing Spiking Neural Networks
 ```
 ### 1. 项目结构
 ```
@@ -109,6 +110,7 @@ python server.py
 ## 备注
 
 * 实现比较简陋还有很大优化空间
+* 参考文献：DeepTAGE: Deep Temporal-Aligned Gradient Enhancement for Optimizing Spiking Neural Networks
 
 ---
 
