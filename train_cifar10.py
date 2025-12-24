@@ -74,10 +74,6 @@ def validate(model, dataloader, device, T):
             total += B
             loss_sum += loss * B
 
-            # 统计发火率（粗略）：统计每个 time-step 的 spike 比例（如果模型返回了 spikes，我们可以更精确）
-            # 我们没有直接得到 spikes 这里只算占位；如果你需要精确发火率，请修改模型 forward 返回 spikes
-            # total_spikes += ... ; total_neurons += B * num_neurons * T
-
     avg_loss = loss_sum / total
     avg_top1 = (top1_sum / total) * 100.0
     avg_top5 = (top5_sum / total) * 100.0
@@ -174,7 +170,7 @@ def main():
     valset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
     val_loader = DataLoader(valset, batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True)
 
-    # 模型（从 deeptage.py 导入）
+    # 模型
     model = SimpleSpikingNet(in_channels=3, num_classes=10, channels=[32, 64, 128], T=args.T, v_th=1.0, decay=2.0, w=0.25)
     model = model.to(device)
 
@@ -189,7 +185,7 @@ def main():
     best_acc = 0.0
     os.makedirs(args.out_dir, exist_ok=True)
 
-    # 恢复 checkpoint（可选）
+    # 恢复 checkpoint
     if args.resume:
         print("=> loading checkpoint '{}'".format(args.resume))
         checkpoint = torch.load(args.resume, map_location=device)
